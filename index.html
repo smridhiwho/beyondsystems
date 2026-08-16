@@ -65,6 +65,13 @@
     background:var(--cream-2);border:1.5px solid var(--ink);border-radius:20px;
     padding:6px 14px;
   }
+  .topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+  .topnav a{
+    font-family:'JetBrains Mono', monospace;font-size:12.5px;color:var(--ink);
+    background:var(--cream-2);border:1.5px solid var(--ink);border-radius:20px;
+    padding:7px 14px;transition:background .15s ease, transform .15s ease;
+  }
+  .topnav a:hover{background:var(--gold-soft);transform:translateY(-1px);}
 
   /* ---------- hero ---------- */
   .hero{
@@ -258,6 +265,9 @@
 
 <div class="topbar">
   <div class="brand"><span class="dot"></span>the half-stack girl</div>
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="roadmap/index.html">ROADMAP</a>
+  </nav>
 </div>
 
 <section class="hero">
@@ -332,7 +342,7 @@
 <section class="stats-section">
   <div class="wrap">
     <div class="stats-row">
-      <div class="stat"><div class="num">23.8k+</div><div class="label">followers</div></div>
+      <div class="stat"><div class="num">24.3k+</div><div class="label">followers</div></div>
       <div class="stat"><div class="num">10M+</div><div class="label">organic views</div></div>
       <div class="stat"><div class="num">6</div><div class="label">published AI research papers</div></div>
       <div class="stat"><div class="num">120+</div><div class="label">students / founders helped</div></div>
@@ -344,7 +354,7 @@
   <div class="wrap">
     <div class="bio-card">
       <div class="quote-mark">"</div>
-      <p>I'm Smridhi, the creator behind @thehalfstackgirl. I publish AI research, teach engineers and developers how AI systems actually work, and help founders think through AI-security. My content reaches 23.8k+ developers, students, and founders who care about substance over hype.</p>
+      <p>I'm Smridhi, the creator behind @thehalfstackgirl. I publish AI research, teach engineers and developers how AI systems actually work, and help founders think through AI-security. My content reaches 24.3k+ developers, students, and founders who care about substance over hype.</p>
     </div>
   </div>
 </section>
@@ -355,6 +365,9 @@
       <a href="https://instagram.com/thehalfstackgirl" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#1C1712" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#1C1712" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="#1C1712"/></svg>
         Instagram
+      </a>
+      <a href="roadmap/index.html">
+        AI Engineering Roadmap
       </a>
       <a href="mailto:thehalfstackgirl@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#1C1712" stroke-width="1.6"/><path d="M3 7l9 6 9-6" stroke="#1C1712" stroke-width="1.6"/></svg>

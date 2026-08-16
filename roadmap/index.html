@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineering Roadmap | Beyond Systems</title>
+<meta name="description" content="A free, crawlable AI Engineering Roadmap from Smridhi / @thehalfstackgirl, covering fundamentals, LLM APIs, retrieval, RAG, agents, production infrastructure, evaluation, security, and advanced AI.">
+<link rel="canonical" href="https://beyondsystems.xyz/roadmap">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Engineering Roadmap | Beyond Systems">
+<meta property="og:description" content="A free 10 section AI Engineering Roadmap for learning the path from programming fundamentals to production AI systems.">
+<meta property="og:url" content="https://beyondsystems.xyz/roadmap">
+<meta property="og:site_name" content="Beyond Systems">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Engineering Roadmap | Beyond Systems">
+<meta name="twitter:description" content="A free 10 section AI Engineering Roadmap by Smridhi / @thehalfstackgirl.">
+<meta name="author" content="Smridhi / @thehalfstackgirl">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4E7D3;
+    --cream-2:#FBF3E6;
+    --ink:#1C1712;
+    --gold:#C6952F;
+    --gold-soft:#E4C583;
+    --coral:#FF5A3C;
+    --coral-deep:#E24726;
+    --sage:#6E8A63;
+    --lavender:#A6A0D8;
+    --line:rgba(28,23,18,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 8% 15%, rgba(198,149,47,0.10), transparent 40%),
+      radial-gradient(circle at 92% 75%, rgba(255,90,60,0.08), transparent 40%);
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif;letter-spacing:-0.02em;line-height:1.1;}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .hand{font-family:'Caveat', cursive;}
+
+  .skip-link{
+    position:absolute;left:16px;top:-44px;background:var(--ink);color:var(--cream-2);
+    padding:10px 14px;border-radius:10px;z-index:40;
+  }
+  .skip-link:focus{top:16px;}
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:22px 28px;max-width:1180px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;font-weight:700;font-size:19px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .brand .dot{width:9px;height:9px;background:var(--coral);border-radius:50%;display:inline-block;}
+  .topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+  .topnav a{
+    font-family:'JetBrains Mono', monospace;font-size:12.5px;color:var(--ink);
+    background:var(--cream-2);border:1.5px solid var(--ink);border-radius:20px;
+    padding:7px 14px;transition:background .15s ease, transform .15s ease;
+  }
+  .topnav a:hover{background:var(--gold-soft);transform:translateY(-1px);}
+  .topnav a[aria-current="page"]{background:var(--coral);color:#fff;}
+
+  .hero{position:relative;padding:40px 0 34px;}
+  .hero-grid{display:grid;grid-template-columns:minmax(0, 1fr) 320px;gap:34px;align-items:end;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono', monospace;font-size:13px;
+    color:var(--coral-deep);background:#fff;border:1.5px solid var(--ink);
+    padding:6px 12px;border-radius:20px;margin-bottom:22px;
+    transform:rotate(-1.5deg);
+  }
+  h1{font-size:clamp(38px, 6vw, 72px);max-width:760px;}
+  h1 .accent{color:var(--coral);}
+  .hero .summary{font-size:18px;line-height:1.55;color:#3a332a;max-width:68ch;margin-top:18px;}
+  .hero-meta{
+    display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;
+  }
+  .hero-meta span{
+    font-family:'JetBrains Mono', monospace;font-size:12px;
+    background:var(--cream-2);border:1.5px solid var(--ink);border-radius:20px;
+    padding:7px 12px;
+  }
+  .byline{
+    background:var(--cream-2);border:2px solid var(--ink);border-radius:16px;
+    padding:22px;box-shadow:5px 5px 0 rgba(28,23,18,0.85);
+  }
+  .byline .hand{font-size:25px;color:var(--coral-deep);}
+  .byline p{font-size:14px;color:#463d31;margin-top:8px;}
+  .byline a{text-decoration:underline;text-underline-offset:3px;}
+
+  .progress-shell{
+    position:sticky;top:0;z-index:20;background:rgba(244,231,211,0.92);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .progress-inner{display:flex;align-items:center;gap:14px;padding:12px 28px;}
+  .progress-track{height:9px;flex:1;background:var(--cream-2);border:1px solid var(--ink);border-radius:999px;overflow:hidden;}
+  .progress-fill{height:100%;width:0;background:var(--coral);transition:width .2s ease;}
+  .progress-label{font-family:'JetBrains Mono', monospace;font-size:12px;color:#5c5344;white-space:nowrap;}
+
+  .knowledge-nav{padding:26px 0 8px;}
+  .knowledge-nav h2{font-size:18px;margin-bottom:12px;}
+  .section-links{display:flex;gap:10px;flex-wrap:wrap;}
+  .section-links a{
+    font-family:'JetBrains Mono', monospace;font-size:12px;
+    border:1.5px solid var(--ink);background:var(--cream-2);border-radius:20px;
+    padding:7px 12px;
+  }
+  .section-links a:hover{background:var(--gold-soft);}
+
+  .intro{padding:26px 0 10px;}
+  .intro-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:24px;align-items:start;}
+  .intro h2{font-size:30px;margin-bottom:12px;}
+  .intro p{color:#3a332a;margin-bottom:12px;}
+  .note{
+    border:2px solid var(--ink);background:#fff;border-radius:16px;padding:22px;
+    box-shadow:4px 4px 0 rgba(28,23,18,0.12);
+  }
+  .note h3{font-size:20px;margin-bottom:10px;}
+  .note ul{padding-left:18px;color:#3a332a;}
+  .note li{margin:6px 0;}
+
+  .roadmap{padding:30px 0 28px;}
+  .roadmap-step{
+    position:relative;background:var(--cream-2);border:2px solid var(--ink);border-radius:18px;
+    padding:28px;margin-bottom:22px;box-shadow:5px 5px 0 rgba(28,23,18,0.85);
+  }
+  .roadmap-step:nth-child(odd){transform:rotate(-0.25deg);}
+  .roadmap-step:nth-child(even){transform:rotate(0.25deg);}
+  .step-kicker{
+    display:flex;align-items:center;gap:12px;margin-bottom:16px;
+    font-family:'JetBrains Mono', monospace;font-size:12px;color:#6b6252;
+  }
+  .step-num{
+    background:var(--ink);color:var(--cream-2);border-radius:8px;padding:7px 10px;
+  }
+  .step-kicker:after{content:"";height:1.5px;background:var(--coral);flex:1;}
+  .roadmap-step h2{font-size:30px;margin-bottom:8px;}
+  .subtitle{color:var(--coral-deep);font-style:italic;margin-bottom:20px;}
+  .learning-layout{display:grid;grid-template-columns:minmax(0, 1.25fr) minmax(260px, 0.75fr);gap:22px;align-items:start;}
+  .block-title{
+    font-family:'JetBrains Mono', monospace;font-size:11.5px;letter-spacing:0.04em;
+    color:#6b6252;margin-bottom:10px;text-transform:uppercase;
+  }
+  .checklist{list-style:none;display:grid;gap:9px;}
+  .checklist label{
+    display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);
+    border-radius:12px;padding:10px 12px;cursor:pointer;
+  }
+  .checklist input{
+    appearance:none;width:18px;height:18px;border:1.5px solid var(--ink);
+    border-radius:4px;background:var(--gold-soft);display:grid;place-items:center;flex:0 0 auto;
+  }
+  .checklist input:checked{background:var(--ink);}
+  .checklist input:checked:after{content:"✓";color:var(--cream-2);font-size:12px;font-weight:700;}
+  .checklist input:checked + span{color:#6b6252;text-decoration:line-through;}
+  .side-panel{
+    display:grid;gap:14px;
+  }
+  .guide-box,.quiz-box,.coaching-box,.newsletter{
+    background:#fff;border:1.5px solid var(--ink);border-radius:14px;padding:16px;
+  }
+  .guide-status{
+    display:inline-flex;align-items:center;font-family:'JetBrains Mono', monospace;font-size:12px;
+    border:1.5px dashed var(--ink);border-radius:18px;padding:6px 10px;color:#5c5344;
+  }
+  .guide-link{
+    display:inline-flex;align-items:center;font-family:'Space Grotesk', sans-serif;font-weight:700;
+    margin-top:8px;border:1.5px solid var(--ink);border-radius:10px;padding:9px 12px;background:var(--coral);color:#fff;
+  }
+  .related-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:10px;}
+  .related-list li{
+    font-family:'JetBrains Mono', monospace;font-size:11.5px;background:var(--cream);border:1px solid var(--line);
+    border-radius:16px;padding:5px 9px;
+  }
+  .quiz-box p,.guide-box p,.coaching-box p{font-size:14px;color:#463d31;margin-top:8px;}
+  .coaching-box a{
+    display:inline-flex;margin-top:10px;font-family:'JetBrains Mono', monospace;font-size:12px;
+    background:var(--ink);color:var(--cream-2);border-radius:10px;padding:9px 12px;
+  }
+  .footnote{font-size:14px;color:#5c5344;margin-top:16px;}
+
+  .newsletter-section{padding:14px 0 62px;}
+  .newsletter{
+    max-width:760px;margin:0 auto;background:#fff;border-width:2px;
+    box-shadow:5px 5px 0 rgba(28,23,18,0.85);
+  }
+  .newsletter h2{font-size:28px;margin-bottom:10px;}
+  .newsletter p{color:#3a332a;margin-bottom:16px;}
+  .newsletter-form{display:grid;grid-template-columns:minmax(0, 1fr) auto;gap:10px;align-items:start;}
+  .newsletter-form label{grid-column:1 / -1;margin-bottom:-4px;}
+  .newsletter input{
+    width:100%;font:inherit;border:1.5px solid var(--ink);border-radius:11px;
+    padding:13px 14px;background:var(--cream-2);color:var(--ink);
+  }
+  .newsletter button{
+    font-family:'Space Grotesk', sans-serif;font-size:15px;font-weight:700;
+    border:2px solid var(--ink);border-radius:11px;padding:12px 18px;
+    background:var(--coral);color:#fff;cursor:pointer;
+  }
+  .newsletter button:hover{background:var(--coral-deep);}
+  .form-message{font-size:14px;margin-top:10px;min-height:22px;}
+  .form-message.success{color:#2d5b1e;}
+  .form-message.error{color:#9b2e19;}
+
+  footer{padding:46px 0 40px;border-top:1px solid var(--line);}
+  .footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+  .footer-links{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .footer-links a{
+    display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono', monospace;font-size:13px;
+    border:1.5px solid var(--ink);padding:8px 14px;border-radius:20px;background:var(--cream-2);
+  }
+  .footer-links a:hover{background:var(--gold-soft);}
+  .footer-tag{font-family:'Caveat', cursive;font-size:20px;color:#544b3d;max-width:42ch;}
+
+  @media (max-width:860px){
+    .hero-grid,.intro-grid,.learning-layout{grid-template-columns:1fr;}
+    .byline{max-width:520px;}
+    .roadmap-step:nth-child(odd),.roadmap-step:nth-child(even){transform:none;}
+  }
+  @media (max-width:620px){
+    .topbar{align-items:flex-start;flex-direction:column;}
+    .progress-inner{align-items:flex-start;flex-direction:column;}
+    .progress-track{width:100%;}
+    .newsletter-form{grid-template-columns:1fr;}
+    .newsletter button{width:100%;}
+    .roadmap-step{padding:22px;}
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://beyondsystems.xyz/roadmap#webpage",
+      "url": "https://beyondsystems.xyz/roadmap",
+      "name": "AI Engineering Roadmap",
+      "description": "A free 10 section AI Engineering Roadmap for learning the path from programming fundamentals to production AI systems.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Beyond Systems",
+        "url": "https://beyondsystems.xyz/"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Smridhi",
+        "alternateName": "@thehalfstackgirl",
+        "url": "https://instagram.com/thehalfstackgirl"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://beyondsystems.xyz/roadmap#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beyond Systems",
+          "item": "https://beyondsystems.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI Engineering Roadmap",
+          "item": "https://beyondsystems.xyz/roadmap"
+        }
+      ]
+    },
+    {
+      "@type": "Course",
+      "@id": "https://beyondsystems.xyz/roadmap#course",
+      "name": "AI Engineering Roadmap",
+      "description": "A free learning path from programming fundamentals to production AI systems.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Beyond Systems",
+        "url": "https://beyondsystems.xyz/"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Smridhi",
+        "alternateName": "@thehalfstackgirl"
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "Self paced"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://beyondsystems.xyz/roadmap#sections",
+      "name": "AI Engineering Roadmap Sections",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Learn the Fundamentals","url":"https://beyondsystems.xyz/roadmap#fundamentals"},
+        {"@type":"ListItem","position":2,"name":"Learn LLM APIs","url":"https://beyondsystems.xyz/roadmap#llm-apis"},
+        {"@type":"ListItem","position":3,"name":"Understand How LLMs Get Smarter","url":"https://beyondsystems.xyz/roadmap#smarter-llms"},
+        {"@type":"ListItem","position":4,"name":"Master Retrieval","url":"https://beyondsystems.xyz/roadmap#retrieval"},
+        {"@type":"ListItem","position":5,"name":"Build RAG Systems","url":"https://beyondsystems.xyz/roadmap#rag-systems"},
+        {"@type":"ListItem","position":6,"name":"Learn AI Agents","url":"https://beyondsystems.xyz/roadmap#ai-agents"},
+        {"@type":"ListItem","position":7,"name":"Production Infrastructure","url":"https://beyondsystems.xyz/roadmap#production-infrastructure"},
+        {"@type":"ListItem","position":8,"name":"Evaluation and Observability","url":"https://beyondsystems.xyz/roadmap#evaluation-observability"},
+        {"@type":"ListItem","position":9,"name":"AI Security","url":"https://beyondsystems.xyz/roadmap#ai-security"},
+        {"@type":"ListItem","position":10,"name":"Advanced AI","url":"https://beyondsystems.xyz/roadmap#advanced-ai"}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to roadmap</a>
+
+<header class="topbar">
+  <a class="brand" href="../index.html" aria-label="Beyond Systems home"><span class="dot"></span>the half-stack girl</a>
+  <nav class="topnav" aria-label="Main navigation">
+    <a href="../index.html">HOME</a>
+    <a href="index.html" aria-current="page">ROADMAP</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="roadmap-title">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">// class Engineer: builds = True</p>
+        <h1 id="roadmap-title">The AI Engineering <span class="accent">Roadmap</span></h1>
+        <p class="summary">10 steps from writing your first script to shipping production AI systems. This roadmap is free, public, and designed to be useful before you ever subscribe to anything.</p>
+        <div class="hero-meta" aria-label="Roadmap summary">
+          <span>10 sections</span>
+          <span>fundamentals to production</span>
+          <span>security included</span>
+        </div>
+      </div>
+      <aside class="byline" aria-label="Author">
+        <p class="hand">by Smridhi</p>
+        <p>Written by <strong> @thehalfstackgirl</strong>, Follow our work at <a href="https://instagram.com/thehalfstackgirl" target="_blank" rel="noopener">@thehalfstackgirl</a> on instagram and youtube.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="progress-shell" aria-label="Roadmap progress">
+    <div class="wrap progress-inner">
+      <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="progress-label" id="progressLabel">0 / 46 done</p>
+    </div>
+  </div>
+
+  <nav class="knowledge-nav wrap" aria-labelledby="section-nav-title">
+    <h2 id="section-nav-title">Roadmap sections</h2>
+    <div class="section-links">
+      <a href="#fundamentals">Fundamentals</a>
+      <a href="#llm-apis">LLM APIs</a>
+      <a href="#smarter-llms">Smarter LLMs</a>
+      <a href="#retrieval">Retrieval</a>
+      <a href="#rag-systems">RAG Systems</a>
+      <a href="#ai-agents">AI Agents</a>
+      <a href="#production-infrastructure">Production</a>
+      <a href="#evaluation-observability">Evaluation</a>
+      <a href="#ai-security">Security</a>
+      <a href="#advanced-ai">Advanced AI</a>
+    </div>
+  </nav>
+
+  <section class="intro" aria-labelledby="how-to-use">
+    <div class="wrap intro-grid">
+      <article>
+        <h2 id="how-to-use">How this roadmap works</h2>
+        <p>The roadmap is the main learning hub for Beyond Systems. Each section has a place for a future guide, related concepts, an optional quiz slot, and a practical next step.</p>
+        <p>When a guide is published, the section will link to the article, then to a quiz, then to a GitHub challenge or build project. Until then, the roadmap still stays readable and useful on its own.</p>
+        <p>Currently, it is a work in progress... so bear with us, thanks!</p>
+      </article>
+      <aside class="note" aria-labelledby="open-access">
+        <h3 id="open-access">Free and opensource!</h3>
+        <ul>
+          <li>No login is required.</li>
+          <li>No email is required.</li>
+          <li>You can share your email to get alerts whenever we post a latest blog!</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="roadmap wrap" aria-labelledby="roadmap-sections-title">
+    <h2 id="roadmap-sections-title" class="block-title">AI Engineering Roadmap</h2>
+
+    <article class="roadmap-step" id="fundamentals" data-roadmap-section data-section-id="fundamentals">
+      <header>
+        <p class="step-kicker"><span class="step-num">01/10</span>AI Engineering Fundamentals</p>
+        <h2>Learn the Fundamentals</h2>
+        <p class="subtitle">Before AI, master programming.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="fundamentals-items">
+          <h3 class="block-title" id="fundamentals-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="fundamentals-python"><span>Python</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="fundamentals-git"><span>Git</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="fundamentals-bash"><span>Bash</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="fundamentals-testing"><span>Testing</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="fundamentals-software-engineering"><span>Basic software engineering</span></label></li>
+          </ul>
+          <p class="footnote">Every great AI engineer starts here.</p>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="fundamentals-guide">
+            <h3 class="block-title" id="fundamentals-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="fundamentals">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Python for AI Engineers</li><li>Git for AI Engineers</li><li>Bash for AI Engineers</li><li>Testing</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="fundamentals" aria-labelledby="fundamentals-quiz">
+            <h3 class="block-title" id="fundamentals-quiz">Quiz</h3>
+            <p>Quiz slot ready for the fundamentals guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Stuck on the fundamentals? Book a 1:1 doubt session with me.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="llm-apis" data-roadmap-section data-section-id="llm-apis">
+      <header>
+        <p class="step-kicker"><span class="step-num">02/10</span>Model Interfaces</p>
+        <h2>Learn LLM APIs</h2>
+        <p class="subtitle">Build with models before training them.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="llm-api-items">
+          <h3 class="block-title" id="llm-api-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="llm-apis-system-prompts"><span>System prompts</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="llm-apis-structured-outputs"><span>Structured outputs</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="llm-apis-function-calling"><span>Function calling</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="llm-apis-streaming"><span>Streaming</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="llm-apis-caching"><span>Caching</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="llm-apis-tool-use"><span>Tool use</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="llm-api-guide">
+            <h3 class="block-title" id="llm-api-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="llm-apis">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>System prompts</li><li>Structured outputs</li><li>Function calling</li><li>Streaming</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="llm-apis" aria-labelledby="llm-api-quiz">
+            <h3 class="block-title" id="llm-api-quiz">Quiz</h3>
+            <p>Quiz slot ready for the LLM APIs guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Confused which API features actually matter? Let's talk it through.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="smarter-llms" data-roadmap-section data-section-id="smarter-llms">
+      <header>
+        <p class="step-kicker"><span class="step-num">03/10</span>LLM Improvement</p>
+        <h2>Understand How LLMs Get Smarter</h2>
+        <p class="subtitle">APIs are only the beginning.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="smarter-llms-items">
+          <h3 class="block-title" id="smarter-llms-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="smarter-llms-prompt-engineering"><span>Prompt engineering</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="smarter-llms-context-engineering"><span>Context engineering</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="smarter-llms-rag-basics"><span>RAG basics</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="smarter-llms-fine-tuning"><span>Fine-tuning fundamentals</span></label></li>
+          </ul>
+          <p class="footnote">This is where real AI applications begin.</p>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="smarter-llms-guide">
+            <h3 class="block-title" id="smarter-llms-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="smarter-llms">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Prompt engineering</li><li>Context engineering</li><li>RAG basics</li><li>Fine-tuning</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="smarter-llms" aria-labelledby="smarter-llms-quiz">
+            <h3 class="block-title" id="smarter-llms-quiz">Quiz</h3>
+            <p>Quiz slot ready for the smarter LLMs guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Not sure when to fine-tune vs. prompt? Get clarity in a session.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="retrieval" data-roadmap-section data-section-id="retrieval">
+      <header>
+        <p class="step-kicker"><span class="step-num">04/10</span>Retrieval</p>
+        <h2>Master Retrieval</h2>
+        <p class="subtitle">LLMs are only as good as the context you give them.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="retrieval-items">
+          <h3 class="block-title" id="retrieval-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="retrieval-embeddings"><span>Embeddings</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="retrieval-vector-databases"><span>Vector databases</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="retrieval-hybrid-search"><span>Hybrid search</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="retrieval-indexing-strategies"><span>Indexing strategies</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="retrieval-rag"><span>RAG</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="retrieval-guide">
+            <h3 class="block-title" id="retrieval-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="retrieval">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Embeddings</li><li>Vector databases</li><li>Hybrid search</li><li>RAG</li><li>Reranking</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="retrieval" aria-labelledby="retrieval-quiz">
+            <h3 class="block-title" id="retrieval-quiz">Quiz</h3>
+            <p>Quiz slot ready for the retrieval guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Vector DB overwhelm? I'll help you pick the right stack.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="rag-systems" data-roadmap-section data-section-id="rag-systems">
+      <header>
+        <p class="step-kicker"><span class="step-num">05/10</span>RAG Systems</p>
+        <h2>Build RAG Systems</h2>
+        <p class="subtitle">Combine retrieval with generation.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="rag-systems-items">
+          <h3 class="block-title" id="rag-systems-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="rag-systems-multi-step-retrieval"><span>Multi-step retrieval</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="rag-systems-orchestration-frameworks"><span>Orchestration frameworks</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="rag-systems-reranking-production"><span>Reranking in production</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="rag-systems-production-pipelines"><span>Production RAG pipelines</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="rag-systems-guide">
+            <h3 class="block-title" id="rag-systems-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="rag-systems">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Multi-step retrieval</li><li>Orchestration</li><li>Reranking</li><li>Production RAG</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="rag-systems" aria-labelledby="rag-systems-quiz">
+            <h3 class="block-title" id="rag-systems-quiz">Quiz</h3>
+            <p>Quiz slot ready for the RAG systems guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Building your first RAG pipeline? Get unstuck faster.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="ai-agents" data-roadmap-section data-section-id="ai-agents">
+      <header>
+        <p class="step-kicker"><span class="step-num">06/10</span>AI Agents</p>
+        <h2>Learn AI Agents</h2>
+        <p class="subtitle">Move from answering to taking action.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="ai-agents-items">
+          <h3 class="block-title" id="ai-agents-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="ai-agents-memory"><span>Memory</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="ai-agents-tool-calling"><span>Tool calling</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="ai-agents-multi-agent-systems"><span>Multi-agent systems</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="ai-agents-human-in-the-loop"><span>Human-in-the-loop</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="ai-agents-agentic-workflows"><span>Agentic workflows</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="ai-agents-guide">
+            <h3 class="block-title" id="ai-agents-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="ai-agents">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Memory</li><li>Tool calling</li><li>Multi-agent systems</li><li>Agentic workflows</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="ai-agents" aria-labelledby="ai-agents-quiz">
+            <h3 class="block-title" id="ai-agents-quiz">Quiz</h3>
+            <p>Quiz slot ready for the AI agents guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Agent architecture getting messy? Get a second opinion.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="production-infrastructure" data-roadmap-section data-section-id="production-infrastructure">
+      <header>
+        <p class="step-kicker"><span class="step-num">07/10</span>Production Infrastructure</p>
+        <h2>Production Infrastructure</h2>
+        <p class="subtitle">Anyone can build a demo.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="production-items">
+          <h3 class="block-title" id="production-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="production-docker"><span>Docker</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="production-ci-cd"><span>CI/CD</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="production-kubernetes"><span>Kubernetes</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="production-model-routing"><span>Model routing</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="production-deployment"><span>Deployment</span></label></li>
+          </ul>
+          <p class="footnote">Learn how to ship production systems.</p>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="production-guide">
+            <h3 class="block-title" id="production-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="production-infrastructure">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Docker</li><li>CI/CD</li><li>Kubernetes</li><li>Model routing</li><li>Deployment</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="production-infrastructure" aria-labelledby="production-quiz">
+            <h3 class="block-title" id="production-quiz">Quiz</h3>
+            <p>Quiz slot ready for the production guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Shipping to production? Avoid common deployment mistakes.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="evaluation-observability" data-roadmap-section data-section-id="evaluation-observability">
+      <header>
+        <p class="step-kicker"><span class="step-num">08/10</span>Evaluation and Observability</p>
+        <h2>Evaluation and Observability</h2>
+        <p class="subtitle">If you can't measure it, you can't improve it.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="evaluation-items">
+          <h3 class="block-title" id="evaluation-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="evaluation-llm-evaluations"><span>LLM evaluations</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="evaluation-tracing"><span>Tracing</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="evaluation-instrumentation"><span>Instrumentation</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="evaluation-llm-as-judge"><span>LLM-as-a-judge</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="evaluation-continuous-evaluation"><span>Continuous evaluation</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="evaluation-guide">
+            <h3 class="block-title" id="evaluation-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="evaluation-observability">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>LLM evaluations</li><li>Tracing</li><li>Instrumentation</li><li>LLM-as-a-judge</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="evaluation-observability" aria-labelledby="evaluation-quiz">
+            <h3 class="block-title" id="evaluation-quiz">Quiz</h3>
+            <p>Quiz slot ready for the evaluation guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Don't guess if your AI system works, set up evaluations.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="ai-security" data-roadmap-section data-section-id="ai-security">
+      <header>
+        <p class="step-kicker"><span class="step-num">09/10</span>AI Security</p>
+        <h2>AI Security</h2>
+        <p class="subtitle">Protect your applications.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="security-items">
+          <h3 class="block-title" id="security-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="security-prompt-injection-defenses"><span>Prompt injection defenses</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="security-guardrails"><span>Guardrails</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="security-sandboxing"><span>Sandboxing</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="security-responsible-ai"><span>Responsible AI</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="security-guide">
+            <h3 class="block-title" id="security-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="ai-security">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Prompt injection</li><li>Guardrails</li><li>Sandboxing</li><li>Responsible AI</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="ai-security" aria-labelledby="security-quiz">
+            <h3 class="block-title" id="security-quiz">Quiz</h3>
+            <p>Quiz slot ready for the AI security guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Security is where many AI apps fail silently. Get an audit call.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+
+    <article class="roadmap-step" id="advanced-ai" data-roadmap-section data-section-id="advanced-ai">
+      <header>
+        <p class="step-kicker"><span class="step-num">10/10</span>Advanced AI</p>
+        <h2>Advanced AI</h2>
+        <p class="subtitle">Go beyond the basics.</p>
+      </header>
+      <div class="learning-layout">
+        <section aria-labelledby="advanced-items">
+          <h3 class="block-title" id="advanced-items">What to learn</h3>
+          <ul class="checklist">
+            <li><label><input type="checkbox" data-progress-key="advanced-fine-tune-self-host"><span>Fine-tune and self-host local LLMs</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="advanced-voice-ai"><span>Set up and host voice AI systems</span></label></li>
+            <li><label><input type="checkbox" data-progress-key="advanced-local-inference-quantization"><span>Local inference and model quantization</span></label></li>
+          </ul>
+        </section>
+        <aside class="side-panel">
+          <section class="guide-box" aria-labelledby="advanced-guide">
+            <h3 class="block-title" id="advanced-guide">Learning guide</h3>
+            <p><span class="guide-status" data-guide-target="advanced-ai">Guide coming soon</span></p>
+            <ul class="related-list" aria-label="Future related concepts">
+              <li>Fine-tuning</li><li>Self-hosting</li><li>Voice AI</li><li>Model quantization</li>
+            </ul>
+          </section>
+          <section class="quiz-box" data-quiz-slot="advanced-ai" aria-labelledby="advanced-quiz">
+            <h3 class="block-title" id="advanced-quiz">Quiz</h3>
+            <p>Quiz slot ready for the advanced AI guide.</p>
+          </section>
+          <section class="coaching-box" aria-label="Doubt session">
+            <h3 class="block-title">Need help?</h3>
+            <p>Ready to go advanced? Book a full roadmap review session.</p>
+            <a href="https://topmate.io/thehalfstackgirl" target="_blank" rel="noopener">topmate.io/thehalfstackgirl</a>
+          </section>
+        </aside>
+      </div>
+    </article>
+  </section>
+
+  <section class="newsletter-section wrap" aria-labelledby="newsletter-title">
+    <div class="newsletter">
+      <h2 id="newsletter-title">New AI Engineering guides every Thursday.</h2>
+      <p>I update the roadmap with new engineering guides every Thursday. Subscribe if you want the latest ones in your inbox.</p>
+      <form class="newsletter-form" id="newsletterForm" novalidate>
+        <label for="newsletterEmail" class="block-title">Email address</label>
+        <input id="newsletterEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="newsletterMessage">
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="form-message" id="newsletterMessage" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="../index.html">Home</a>
+      <a href="index.html">AI Engineering Roadmap</a>
+      <a href="https://instagram.com/thehalfstackgirl" target="_blank" rel="noopener">@thehalfstackgirl</a>
+      <a href="mailto:thehalfstackgirl@gmail.com">thehalfstackgirl@gmail.com</a>
+    </nav>
+    <p class="footer-tag">Not another AI influencer. Just someone who builds and teaches what actually works.</p>
+  </div>
+</footer>
+
+<script>
+const ROADMAP_GUIDES = {
+  "fundamentals": { blogSlug: null, relatedPosts: [] },
+  "llm-apis": { blogSlug: null, relatedPosts: [] },
+  "smarter-llms": { blogSlug: null, relatedPosts: [] },
+  "retrieval": { blogSlug: null, relatedPosts: [] },
+  "rag-systems": { blogSlug: null, relatedPosts: [] },
+  "ai-agents": { blogSlug: null, relatedPosts: [] },
+  "production-infrastructure": { blogSlug: null, relatedPosts: [] },
+  "evaluation-observability": { blogSlug: null, relatedPosts: [] },
+  "ai-security": { blogSlug: null, relatedPosts: [] },
+  "advanced-ai": { blogSlug: null, relatedPosts: [] }
+};
+
+const QUIZZES = {};
+const PROGRESS_STORAGE_KEY = "beyond_systems_ai_engineering_roadmap_progress_v1";
+const NEWSLETTER_ENDPOINT = "";
+
+const progressInputs = Array.from(document.querySelectorAll("[data-progress-key]"));
+const progressFill = document.getElementById("progressFill");
+const progressLabel = document.getElementById("progressLabel");
+
+function loadProgress(){
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY) || "{}");
+  } catch(error) {
+    return {};
+  }
+}
+
+function saveProgress(progress){
+  localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
+}
+
+function updateProgress(){
+  const done = progressInputs.filter(input => input.checked).length;
+  const total = progressInputs.length;
+  const percentage = total ? Math.round((done / total) * 100) : 0;
+  progressFill.style.width = percentage + "%";
+  progressLabel.textContent = done + " / " + total + " done";
+}
+
+function initializeProgress(){
+  const progress = loadProgress();
+  progressInputs.forEach(input => {
+    input.checked = Boolean(progress[input.dataset.progressKey]);
+    input.addEventListener("change", () => {
+      progress[input.dataset.progressKey] = input.checked;
+      saveProgress(progress);
+      updateProgress();
+    });
+  });
+  updateProgress();
+}
+
+function initializeGuides(){
+  Object.entries(ROADMAP_GUIDES).forEach(([sectionId, config]) => {
+    const target = document.querySelector(`[data-guide-target="${sectionId}"]`);
+    if(!target || !config.blogSlug) return;
+    const link = document.createElement("a");
+    link.className = "guide-link";
+    link.href = config.blogSlug;
+    link.textContent = "Read the guide";
+    target.replaceWith(link);
+  });
+}
+
+function initializeQuizzes(){
+  Object.entries(QUIZZES).forEach(([sectionId, questions]) => {
+    const slot = document.querySelector(`[data-quiz-slot="${sectionId}"]`);
+    if(!slot || !questions || !questions.length) return;
+    slot.innerHTML = "";
+    const title = document.createElement("h3");
+    title.className = "block-title";
+    title.textContent = "Quiz";
+    slot.appendChild(title);
+    questions.forEach(question => {
+      const prompt = document.createElement("p");
+      prompt.textContent = question.q;
+      slot.appendChild(prompt);
+    });
+  });
+}
+
+async function subscribeToNewsletter(email){
+  if(!NEWSLETTER_ENDPOINT){
+    throw new Error("Newsletter provider is not connected yet. Your email was not sent.");
+  }
+
+  const response = await fetch(NEWSLETTER_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  });
+
+  if(!response.ok){
+    throw new Error("Something went wrong. Please try again.");
+  }
+
+  return response;
+}
+
+function initializeNewsletter(){
+  const form = document.getElementById("newsletterForm");
+  const emailInput = document.getElementById("newsletterEmail");
+  const message = document.getElementById("newsletterMessage");
+  if(!form || !emailInput || !message) return;
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    message.className = "form-message";
+    const email = emailInput.value.trim();
+
+    if(!email){
+      message.textContent = "Enter an email address to subscribe. The roadmap stays open either way.";
+      message.classList.add("error");
+      return;
+    }
+
+    if(!emailInput.validity.valid){
+      message.textContent = "Please enter a valid email address.";
+      message.classList.add("error");
+      return;
+    }
+
+    try {
+      await subscribeToNewsletter(email);
+      message.textContent = "You're subscribed. Check your inbox for the next AI Engineering guide.";
+      message.classList.add("success");
+      form.reset();
+    } catch(error) {
+      message.textContent = error.message;
+      message.classList.add("error");
+    }
+  });
+}
+
+initializeProgress();
+initializeGuides();
+initializeQuizzes();
+initializeNewsletter();
+</script>
+</body>
+</html>
