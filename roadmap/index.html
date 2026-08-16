@@ -233,13 +233,225 @@
     .byline{max-width:520px;}
     .roadmap-step:nth-child(odd),.roadmap-step:nth-child(even){transform:none;}
   }
+  /* ---------- mobile responsive ---------- */
   @media (max-width:620px){
-    .topbar{align-items:flex-start;flex-direction:column;}
-    .progress-inner{align-items:flex-start;flex-direction:column;}
-    .progress-track{width:100%;}
-    .newsletter-form{grid-template-columns:1fr;}
-    .newsletter button{width:100%;}
-    .roadmap-step{padding:22px;}
+    .wrap{
+      padding-left:16px;
+      padding-right:16px;
+    }
+
+    /* Keep the header compact and on one row */
+    .topbar{
+      padding:16px;
+      align-items:center;
+      flex-direction:row;
+      gap:10px;
+    }
+
+    .brand{
+      font-size:16px;
+      min-width:0;
+      white-space:nowrap;
+    }
+
+    .topnav{
+      gap:6px;
+      flex-wrap:nowrap;
+      flex:0 0 auto;
+    }
+
+    .topnav a{
+      font-size:10px;
+      padding:6px 9px;
+      white-space:nowrap;
+    }
+
+    /* Hero */
+    .hero{
+      padding:28px 0 24px;
+    }
+
+    h1{
+      font-size:clamp(36px,11vw,52px);
+      line-height:1.02;
+    }
+
+    .hero .summary{
+      font-size:16px;
+    }
+
+    .hero-meta{
+      gap:7px;
+    }
+
+    .hero-meta span{
+      font-size:10px;
+      padding:6px 9px;
+    }
+
+    .byline{
+      padding:18px;
+    }
+
+    /* Progress stays on one compact row */
+    .progress-inner{
+      flex-direction:row;
+      align-items:center;
+      padding:10px 16px;
+      gap:10px;
+    }
+
+    .progress-track{
+      width:auto;
+      flex:1;
+      min-width:0;
+    }
+
+    .progress-label{
+      font-size:10px;
+    }
+
+    /* Roadmap section navigation becomes horizontally scrollable */
+    .knowledge-nav{
+      padding-top:20px;
+    }
+
+    .section-links{
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      padding-bottom:8px;
+      padding-right:16px;
+      margin-right:-16px;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .section-links::-webkit-scrollbar{
+      display:none;
+    }
+
+    .section-links a{
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+
+    /* Intro */
+    .intro{
+      padding:22px 0 8px;
+    }
+
+    .intro h2{
+      font-size:26px;
+    }
+
+    /* Roadmap cards */
+    .roadmap{
+      padding-top:22px;
+    }
+
+    .roadmap-step{
+      padding:18px;
+      border-radius:14px;
+      margin-bottom:18px;
+    }
+
+    .roadmap-step h2{
+      font-size:24px;
+    }
+
+    .step-kicker{
+      gap:8px;
+      font-size:10px;
+    }
+
+    .step-num{
+      padding:6px 8px;
+    }
+
+    .subtitle{
+      font-size:14px;
+      margin-bottom:16px;
+    }
+
+    /* Make checklist items comfortable touch targets */
+    .checklist label{
+      min-height:46px;
+      padding:11px 12px;
+    }
+
+    /* Prevent long related tags from causing horizontal overflow */
+    .related-list li{
+      overflow-wrap:anywhere;
+    }
+
+    .guide-box,
+    .quiz-box,
+    .coaching-box,
+    .newsletter{
+      padding:14px;
+    }
+
+    /* Newsletter */
+    .newsletter{
+      margin-left:0;
+      margin-right:0;
+    }
+
+    .newsletter h2{
+      font-size:24px;
+    }
+
+    .newsletter-form{
+      grid-template-columns:1fr;
+    }
+
+    .newsletter button{
+      width:100%;
+    }
+
+    /* Footer */
+    .footer-links{
+      gap:8px;
+    }
+
+    .footer-links a{
+      font-size:11px;
+      padding:7px 10px;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+  }
+
+  /* Extra-small phones */
+  @media (max-width:380px){
+    .topbar{
+      gap:6px;
+    }
+
+    .brand{
+      font-size:14px;
+    }
+
+    .topnav a{
+      font-size:9px;
+      padding:5px 7px;
+    }
+
+    .roadmap-step{
+      padding:15px;
+    }
+
+    .roadmap-step h2{
+      font-size:22px;
+    }
+
+    .hero-meta{
+      gap:6px;
+    }
+
+    .hero-meta span{
+      font-size:9px;
+    }
   }
 </style>
 <script type="application/ld+json">
