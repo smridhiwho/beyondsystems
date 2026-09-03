@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM API Guide | Beyond Systems</title>
+  <link rel="canonical" href="https://beyondsystems.xyz/roadmap/llm-api">
+  <meta name="description" content="Complete guide to building, deploying, and scaling LLM-powered applications: API keys, prompt engineering, caching, cost optimization, and production patterns.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#F4E7D3;
+      --cream-2:#FBF3E6;
+      --ink:#1C1712;
+      --gold:#C6952F;
+      --gold-soft:#E4C583;
+      --coral:#FF5A3C;
+      --coral-deep:#E24726;
+      --sage:#6E8A63;
+      --lavender:#A6A0D8;
+      --line:rgba(28,23,18,0.14);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--cream);
+      color:var(--ink);
+      font-family:'Inter', sans-serif;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.6;
+      overflow-x:hidden;
+      background-image:
+        radial-gradient(circle at 8% 15%, rgba(198,149,47,0.10), transparent 40%),
+        radial-gradient(circle at 92% 75%, rgba(255,90,60,0.08), transparent 40%);
+    }
+
+    .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+    h1,h2,h3{font-family:'Space Grotesk', sans-serif;letter-spacing:-0.02em;line-height:1.1;}
+    a{color:inherit;text-decoration:none;}
+    .mono{font-family:'JetBrains Mono', monospace;}
+    .hand{font-family:'Caveat', cursive;}
+
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+      padding:22px 28px;max-width:1180px;margin:0 auto;
+    }
+    .brand{
+      font-family:'Space Grotesk', sans-serif;font-weight:700;font-size:19px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .brand .dot{width:9px;height:9px;background:var(--coral);border-radius:50%;display:inline-block;}
+    .topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+    .topnav a{
+      font-family:'JetBrains Mono', monospace;font-size:12.5px;color:var(--ink);
+      background:var(--cream-2);border:1.5px solid var(--ink);border-radius:20px;
+      padding:7px 14px;transition:background .15s ease, transform .15s ease;
+    }
+    .topnav a:hover{background:var(--gold-soft);transform:translateY(-1px);}
+    .topnav a[aria-current="page"]{background:var(--coral);color:#fff;}
+
+    .hero{position:relative;padding:40px 0 34px;background:linear-gradient(135deg, var(--cream) 0%, var(--lavender) 5%);}
+    .hero-grid{display:grid;grid-template-columns:minmax(0, 1fr) 320px;gap:34px;align-items:end;}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:'JetBrains Mono', monospace;font-size:13px;
+      color:var(--coral-deep);background:#fff;border:1.5px solid var(--ink);
+      padding:6px 12px;border-radius:20px;margin-bottom:22px;
+      transform:rotate(-1.5deg);
+    }
+    h1{font-size:clamp(38px, 6vw, 72px);max-width:760px;}
+    h1 .accent{color:var(--coral);}
+    .hero .summary{font-size:18px;line-height:1.55;color:#3a332a;max-width:68ch;margin-top:18px;}
+
+    .roadmap-section{padding:40px 0 28px;border-top:1px solid var(--line);}
+    .section-title{font-size:28px;margin-bottom:8px;}
+    .section-intro{color:#3a332a;margin-bottom:24px;font-size:16px;}
+
+    .lesson-grid{display:grid;gap:24px;margin-top:24px;}
+    
+    .lesson-card{
+      background:#fff;border:2px solid var(--ink);border-radius:16px;
+      padding:24px;box-shadow:4px 4px 0 rgba(28,23,18,0.12);
+    }
+    .lesson-title{font-family:'Space Grotesk', sans-serif;font-size:20px;margin-bottom:8px;}
+    .lesson-meta{
+      display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;
+      font-family:'JetBrains Mono', monospace;font-size:12px;color:#5c5244;
+    }
+    .lesson-badge{
+      background:var(--cream-2);border:1.5px solid var(--ink);
+      border-radius:8px;padding:4px 8px;
+    }
+    .lesson-description{color:#3a332a;line-height:1.5;margin-bottom:12px;}
+    .lesson-tags{display:flex;gap:8px;flex-wrap:wrap;}
+    .tag{
+      background:var(--lavender);border:1px solid var(--line);
+      border-radius:6px;padding:4px 8px;font-size:11px;color:#463d31;
+    }
+
+    footer{padding:46px 0 40px;border-top:1px solid var(--line);}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+    .footer-links{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+    .footer-links a{
+      display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono', monospace;font-size:13px;
+      border:1.5px solid var(--ink);padding:8px 14px;border-radius:20px;background:var(--cream-2);
+    }
+    .footer-links a:hover{background:var(--gold-soft);}
+    .footer-tag{font-family:'Caveat', cursive;font-size:20px;color:#544b3d;max-width:42ch;}
+
+    @media (max-width:760px){
+      .hero-grid,.lesson-grid{grid-template-columns:1fr;}
+      .topbar{padding:16px;gap:10px;align-items:center;flex-direction:row;}
+      .brand{font-size:16px;min-width:0;white-space:nowrap;}
+      .topnav{gap:6px;flex-wrap:nowrap;flex:0 0 auto;}
+      .topnav a{font-size:10px;padding:5px 7px;white-space:nowrap;}
+      .hero{padding:28px 0 24px;}
+      h1{font-size:clamp(32px,11vw,52px);}
+      .hero .summary{font-size:16px;}
+      .hero-meta{gap:6px;}
+      .hero-meta span{font-size:9px;padding:5px 7px;}
+      .roadmap-section{padding:24px 0 20px;}
+      .lesson-card{padding:18px;}
+      .lesson-title{font-size:18px;}
+      .footer-links{gap:8px;}
+      .footer-links a{font-size:11px;padding:5px 10px;max-width:100%;overflow-wrap:anywhere;}
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+  <header class="topbar">
+    <a href="/" class="brand"><span class="dot"></span>Beyond Systems</a>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/roadmap">AI Roadmap</a>
+      <a href="/roadmap/software-engineering">Software Engineering</a>
+      <a href="/roadmap/llm-api" aria-current="page">LLM API</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1 class="headline"><span class="hand">LLM API </span> Guide</h1>
+          <p class="summary">Build production-ready AI applications: API fundamentals, prompt engineering, rate limiting, cost optimization, and scalable patterns for LLM-powered services.</p>
+          
+          <div class="hero-meta">
+            <span>Category: AI/API</span>
+            <span>Status: 9 Lessons</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="roadmap-section">
+      <h2 class="section-title">Lessons</h2>
+      <p class="section-intro">Master the practical skills to build and deploy LLM-powered applications at scale.</p>
+      
+      <div class="lesson-grid">
+        <!-- Lesson 1: API Fundamentals -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/01-api-fundamentals">LLM API Fundamentals</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Beginner</span>
+            <span class="lesson-badge">25 min</span>
+            <span class="lesson-badge">Essential</span>
+          </div>
+          <p class="lesson-description">Large Language Model APIs have revolutionized application development. Learn authentication, basic calls, and provider comparison.</p>
+          <div class="lesson-tags">
+            <span class="tag">#openai</span>
+            <span class="tag">#anthropic</span>
+            <span class="tag">#api-design</span>
+          </div>
+        </article>
+
+        <!-- Lesson 2: Prompt Engineering -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/02-prompt-engineering">Prompt Engineering Basics</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Beginner</span>
+            <span class="lesson-badge">20 min</span>
+          </div>
+          <p class="lesson-description">Get better results from your prompts. Learn system prompts, few-shot examples, and how to communicate intent to AI models.</p>
+          <div class="lesson-tags">
+            <span class="tag">#prompt-engineering</span>
+            <span class="tag">#system-prompts</span>
+            <span class="tag">#few-shot</span>
+          </div>
+        </article>
+
+        <!-- Lesson 3: Temperature & Sampling -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/03-temperature-sampling">Temperature and Sampling Parameters</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Beginner</span>
+            <span class="lesson-badge">15 min</span>
+          </div>
+          <p class="lesson-description">Control creativity vs. determinism in LLM outputs. Learn when to use low vs high temperature settings.</p>
+          <div class="lesson-tags">
+            <span class="tag">#temperature</span>
+            <span class="tag">#top-p</span>
+            <span class="tag">#sampling</span>
+          </div>
+        </article>
+
+        <!-- Lesson 4: Rate Limiting -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/04-rate-limiting">Rate Limiting and Scaling</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Intermediate</span>
+            <span class="lesson-badge">30 min</span>
+          </div>
+          <p class="lesson-description">Handle API quotas, implement caching, and design for scale. Learn patterns for building resilient LLM services.</p>
+          <div class="lesson-tags">
+            <span class="tag">#rate-limiting</span>
+            <span class="tag">#caching</span>
+            <span class="tag">#scaling</span>
+          </div>
+        </article>
+
+        <!-- Lesson 5: Cost Management -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/05-cost-management">Cost Management and Budgeting</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Intermediate</span>
+            <span class="lesson-badge">25 min</span>
+          </div>
+          <p class="lesson-description">LLM APIs can get expensive fast. Learn how to estimate costs, set budgets, and optimize token usage.</p>
+          <div class="lesson-tags">
+            <span class="tag">#cost-optimization</span>
+            <span class="tag">#token-usage</span>
+            <span class="tag">#budgeting</span>
+          </div>
+        </article>
+
+        <!-- Lesson 6: Error Handling -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/06-error-handling">Error Handling and Retry Logic</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Intermediate</span>
+            <span class="lesson-badge">25 min</span>
+          </div>
+          <p class="lesson-description">LLM APIs fail. Learn to handle rate limits, timeouts, and invalid responses gracefully.</p>
+          <div class="lesson-tags">
+            <span class="tag">#errors</span>
+            <span class="tag">#retries</span>
+            <span class="tag">#resilience</span>
+          </div>
+        </article>
+
+        <!-- Lesson 7: Function Calling -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/07-function-calling">Function Calling and Tools</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Advanced</span>
+            <span class="lesson-badge">35 min</span>
+          </div>
+          <p class="lesson-description">Make LLMs call your functions. Learn the anatomy of function definitions and how to handle responses.</p>
+          <div class="lesson-tags">
+            <span class="tag">#function-calling</span>
+            <span class="tag">#tools</span>
+            <span class="tag">#agents</span>
+          </div>
+        </article>
+
+        <!-- Lesson 8: Structured Outputs -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/08-structured-outputs">Structured Outputs and JSON Modes</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Intermediate</span>
+            <span class="lesson-badge">30 min</span>
+          </div>
+          <p class="lesson-description">Get reliable JSON from LLMs. Learn about response_format parameter and schema validation.</p>
+          <div class="lesson-tags">
+            <span class="tag">#json-mode</span>
+            <span class="tag">#structured-output</span>
+            <span class="tag">#parsing</span>
+          </div>
+        </article>
+
+        <!-- Lesson 9: Async APIs -->
+        <article class="lesson-card">
+          <h3 class="lesson-title"><a href="/roadmap/llm-api/09-async-apis">Async API Patterns</a></h3>
+          <div class="lesson-meta">
+            <span class="lesson-badge">Advanced</span>
+            <span class="lesson-badge">35 min</span>
+          </div>
+          <p class="lesson-description">Handle 1000+ concurrent requests efficiently. Learn async patterns and batching strategies.</p>
+          <div class="lesson-tags">
+            <span class="tag">#async</span>
+            <span class="tag">#concurrency</span>
+            <span class="tag">#batching</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-tag">Beyond Systems</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/roadmap">AI Roadmap</a>
+        <a href="/roadmap/software-engineering">Software Engineering</a>
+        <a href="/roadmap/llm-api" aria-current="page">LLM API</a>
+        <a href="https://github.com/thehalfstackgirl">GitHub</a>
+        <a href="https://instagram.com/thehalfstackgirl">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.lesson-card').forEach(card => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.3s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
