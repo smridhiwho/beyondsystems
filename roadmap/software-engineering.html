@@ -127,6 +127,43 @@
       .footer-links{gap:8px;}
       .footer-links a{font-size:11px;padding:5px 10px;max-width:100%;overflow-wrap:anywhere;}
     }
+
+    .accordion{display:grid;gap:16px;margin-top:24px;}
+    .accordion-item{
+      background:#fff;border:2px solid var(--ink);border-radius:16px;
+      box-shadow:4px 4px 0 rgba(28,23,18,0.12);overflow:hidden;
+    }
+    .accordion-item summary{
+      cursor:pointer;padding:20px 24px;list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    }
+    .accordion-item summary::-webkit-details-marker{display:none;}
+    .accordion-item summary::marker{content:"";}
+    .summary-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .summary-title{font-family:'Space Grotesk', sans-serif;font-size:19px;font-weight:600;}
+    .summary-toggle{
+      font-family:'JetBrains Mono', monospace;font-size:20px;color:var(--coral);
+      flex:0 0 auto;transition:transform .15s ease;
+    }
+    .accordion-item[open] .summary-toggle{transform:rotate(45deg);}
+    .accordion-body{padding:0 24px 26px;border-top:1px solid var(--line);}
+    .accordion-body > *:first-child{margin-top:20px;}
+    .accordion-body h3{font-size:17px;margin:22px 0 8px;}
+    .accordion-body p{color:#3a332a;margin-bottom:12px;font-size:15px;}
+    .accordion-body ul,.accordion-body ol{color:#3a332a;padding-left:20px;margin-bottom:12px;}
+    .accordion-body li{margin-bottom:4px;}
+    .accordion-body strong{color:var(--ink);}
+    .code-block{
+      background:var(--ink);color:#F4E7D3;border-radius:12px;padding:16px 18px;overflow-x:auto;
+      margin:12px 0 16px;box-shadow:4px 4px 0 rgba(28,23,18,0.18);
+    }
+    .code-block pre{font-family:'JetBrains Mono', monospace;font-size:13px;line-height:1.55;white-space:pre;}
+    .callout{
+      border:2px solid var(--ink);background:var(--cream-2);border-radius:16px;padding:20px 22px;
+      box-shadow:4px 4px 0 rgba(28,23,18,0.12);margin:26px 0 0;
+    }
+    .callout h3{font-size:17px;margin-bottom:8px;}
+    .callout p{margin-bottom:0;}
   </style>
 </head>
 <body>
@@ -151,7 +188,7 @@
           
           <div class="hero-meta">
             <span>Category: Fundamentals</span>
-            <span>Status: 8 Lessons</span>
+            <span>Status: 9 Topics</span>
           </div>
         </div>
       </div>
@@ -161,127 +198,246 @@
       <h2 class="section-title">Lessons</h2>
       <p class="section-intro">Build a foundation for production systems with these essential software engineering practices.</p>
       
-      <div class="lesson-grid">
-        <!-- Lesson 1: Virtual Environments -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/01-virtual-environments">Virtual Environments: Why Isolation Matters</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">15 min</span>
-            <span class="lesson-badge">Essential</span>
-          </div>
-          <p class="lesson-description">When you install packages globally, you're playing with fire. Two projects might need different versions of the same package. Learn how virtual environments solve dependency conflicts.</p>
-          <div class="lesson-tags">
-            <span class="tag">#venv</span>
-            <span class="tag">#dependency-management</span>
-            <span class="tag">#best-practices</span>
-          </div>
-        </article>
+      <div class="accordion">
+        <details class="accordion-item" open>
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Virtual Environments: Why Isolation Matters</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span><span class="lesson-badge">Essential</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>When you install packages globally, you're playing with fire. Two projects might need different versions of the same package. World breaks, your code breaks with it.</p>
+            <p>A virtual environment creates an isolated Python installation per project. Each project gets its own set of dependencies, locked at specific versions. When you switch projects, you switch worlds entirely.</p>
+            <p>The cost of not using virtualenvs: "dependency hell," where upgrades in one project break another, and you spend hours debugging phantom issues caused by version conflicts.</p>
+            <div class="code-block"><pre># create and activate a virtual environment
+python3 -m venv .venv
 
-        <!-- Lesson 2: Package Management -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/02-package-management">Package Management: Creating Reproducible Builds</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">25 min</span>
-          </div>
-          <p class="lesson-description">Reproducibility means your colleague can clone your code and recreate your exact setup. Learn about requirements.txt, lock files, and why they're non-negotiable for teams.</p>
-          <div class="lesson-tags">
-            <span class="tag">#packaging</span>
-            <span class="tag">#requirements</span>
-            <span class="tag">#ci-cd</span>
-          </div>
-        </article>
+# macOS / Linux
+source .venv/bin/activate
 
-        <!-- Lesson 3: Environment Variables -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/03-environment-variables">Environment Variables: Configuration Without Code Changes</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">15 min</span>
-          </div>
-          <p class="lesson-description">Hardcode a database URL in your code, deploy to staging, oops it still points to production. Learn how 12-factor app practices solve this.</p>
-          <div class="lesson-tags">
-            <span class="tag">#12factor</span>
-            <span class="tag">#secrets</span>
-            <span class="tag">#config</span>
-          </div>
-        </article>
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
 
-        <!-- Lesson 4: Type Hints -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/04-type-hints">Type Hints: Documenting Intentions</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">20 min</span>
+pip install fastapi httpx python-dotenv
+deactivate   # leave the environment</pre></div>
           </div>
-          <p class="lesson-description">Python is dynamically typed. Variables can change types mid-execution. Learn how type hints provide IDE autocomplete and catch bugs before runtime.</p>
-          <div class="lesson-tags">
-            <span class="tag">#python-typing</span>
-            <span class="tag">#mypy</span>
-            <span class="tag">#static-analysis</span>
-          </div>
-        </article>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Package Management: Creating Reproducible Builds</span>
+              <span class="lesson-meta"><span class="lesson-badge">Intermediate</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Reproducibility means: if your colleague clones your code, they can recreate your exact setup. Without a lock file, they install packages, get different versions, and encounter bugs that never appeared on your machine.</p>
+            <p><code>requirements.txt</code> or <code>pyproject.toml</code> defines dependencies. Lock files (<code>poetry.lock</code>, <code>uv.lock</code>) pin exact versions. Your CI/CD system uses both to build identical environments every time.</p>
+            <p>Why it matters: team collaboration without "works on my machine" excuses. Production deployments that mirror development.</p>
+            <div class="code-block"><pre># requirements.txt — simple, explicit versions
+fastapi==0.115.0
+httpx==0.27.2
+python-dotenv==1.0.1
 
-        <!-- Lesson 5: Logging -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/05-logging">Logging: Observability Over Guessing</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">25 min</span>
-          </div>
-          <p class="lesson-description">print() is debugging. Logging is production observability. Learn how structured logging enables distributed tracing and automated alerts.</p>
-          <div class="lesson-tags">
-            <span class="tag">#observability</span>
-            <span class="tag">#logging</span>
-            <span class="tag">#production</span>
-          </div>
-        </article>
+pip install -r requirements.txt
 
-        <!-- Lesson 6: Error Handling -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/06-error-handling">Error Handling: Graceful Degradation</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">25 min</span>
+# or, with a modern dependency manager
+poetry add fastapi httpx python-dotenv
+poetry install   # reads poetry.lock, reproducible every time</pre></div>
           </div>
-          <p class="lesson-description">Failures in distributed systems are inevitable. Learn how to catch specific exceptions, implement retry logic, and communicate failure states clearly.</p>
-          <div class="lesson-tags">
-            <span class="tag">#exceptions</span>
-            <span class="tag">#resilience</span>
-            <span class="tag">#retries</span>
-          </div>
-        </article>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Environment Variables: Configuration Without Code Changes</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Hardcode a database URL in your code, deploy to staging, oops it still points to production. Change it in code, you need a new deployment.</p>
+            <p>Environment variables separate configuration from code. Same binary runs everywhere, configured by its environment.</p>
+            <p>Real-world scenario: your API key expires. With env vars, you update one config file. Without, you hunt through codebases for hardcoded strings.</p>
+            <div class="code-block"><pre># .env
+DATABASE_URL=postgresql://user:pass@localhost:5432/app
+API_KEY=sk-...
 
-        <!-- Lesson 7: Project Structure -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/07-project-structure">Project Structure: Cognitive Load Management</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">20 min</span>
-          </div>
-          <p class="lesson-description">Code organization affects how easily you can find and modify things. Learn standard layouts that reduce onboarding time for new developers.</p>
-          <div class="lesson-tags">
-            <span class="tag">#project-structure</span>
-            <span class="tag">#architecture</span>
-            <span class="tag">#onboarding</span>
-          </div>
-        </article>
+# config.py
+from dotenv import load_dotenv
+import os
 
-        <!-- Lesson 8: Testing Strategies -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/software-engineering/08-testing-strategies">Testing Strategies: Unit, Integration, E2E</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">30 min</span>
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
+API_KEY = os.getenv("API_KEY")</pre></div>
           </div>
-          <p class="lesson-description">Testing is critical for maintainable code. Learn the test pyramid, mocking strategies, and how to set up pytest for confident refactoring.</p>
-          <div class="lesson-tags">
-            <span class="tag">#testing</span>
-            <span class="tag">#pytest</span>
-            <span class="tag">#tdd</span>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Type Hints: Documenting Intentions</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Python is dynamically typed. Variables can change types mid-execution. This flexibility becomes chaos in larger codebases.</p>
+            <p>Type hints are documentation that tools can understand. IDEs use them for autocomplete and error detection. Static type checkers find bugs before code runs.</p>
+            <p>Example of value: <code>def get_user(id: int) -&gt; User</code> prevents passing a string ID from propagating bugs 10 call sites deeper.</p>
+            <div class="code-block"><pre>from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: int
+    name: str
+
+def get_user(user_id: int) -> User:
+    ...
+
+# a type checker (mypy / pyright) catches this before runtime
+get_user("123")  # error: expected int, got str</pre></div>
           </div>
-        </article>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Logging: Observability Over Guessing</span>
+              <span class="lesson-meta"><span class="lesson-badge">Intermediate</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p><code>print()</code> is debugging. Logging is production observability. Logs track what the system did, when, and why.</p>
+            <p>Structured logging (JSON or key-value) lets log aggregation tools search and alert. You can trace a slow request across 5 services by following request IDs through logs.</p>
+            <p>When you need it: system behaves differently in production. Logs show the difference.</p>
+            <div class="code-block"><pre>import logging, json
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("app")
+
+def log_event(event: str, **fields):
+    logger.info(json.dumps({"event": event, **fields}))
+
+log_event("request_completed", request_id="abc123", latency_ms=214, status=200)</pre></div>
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Error Handling: Graceful Degradation</span>
+              <span class="lesson-meta"><span class="lesson-badge">Intermediate</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Failures in distributed systems are inevitable. Networks fail. Databases timeout. Users send bad data.</p>
+            <p>Good error handling answers:</p>
+            <ol>
+              <li>Did this operation fail completely?</li>
+              <li>Was anything else affected?</li>
+              <li>How should the caller respond?</li>
+            </ol>
+            <p>Critical distinction: catch specific exceptions, not broad <code>Exception</code>. Broad catches hide programming errors and make debugging impossible.</p>
+            <div class="code-block"><pre>import httpx
+
+def fetch_user(user_id: int) -> dict:
+    try:
+        response = httpx.get(f"https://api.example.com/users/{user_id}", timeout=5)
+        response.raise_for_status()
+        return response.json()
+    except httpx.TimeoutException:
+        raise RuntimeError(f"Timed out fetching user {user_id}")
+    except httpx.HTTPStatusError as e:
+        raise RuntimeError(f"User {user_id} fetch failed: {e.response.status_code}")</pre></div>
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Project Structure: Cognitive Load Management</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Code organization affects how easily you can find and modify things. No structure means "I'll remember where I put that function," which never works beyond <code>todo.txt</code>.</p>
+            <p>Standard layouts (<code>src/</code> layout vs flat layout) create mental models. New developers navigate faster. Refactoring happens with confidence.</p>
+            <p>Cognitive benefit: spend 5 minutes finding files instead of 2 hours remembering where you hid them.</p>
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">APIs: Defining Service Contracts</span>
+              <span class="lesson-meta"><span class="lesson-badge">Intermediate</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>An API is a contract between systems. Both sides agree: send X, receive Y. If the sender changes X without telling the receiver, the contract breaks.</p>
+            <p>REST APIs use HTTP methods and URLs to express intent. <code>/users/123 DELETE</code> means "delete user 123." Clear verbs prevent accidental data loss.</p>
+            <p>Why contracts matter: frontend can work while backend is being built. Third parties can depend on your service. Changes happen deliberately, not accidentally.</p>
+            <div class="code-block"><pre>from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int):
+    if user_id not in users_db:
+        raise HTTPException(status_code=404, detail="User not found")
+    del users_db[user_id]
+    return {"status": "deleted", "user_id": user_id}</pre></div>
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Async Python: Concurrency Without Threads</span>
+              <span class="lesson-meta"><span class="lesson-badge">Advanced</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>Synchronous code waits for each operation to finish. A slow database query blocks everything.</p>
+            <p>Async code: when waiting for I/O, yield control to other tasks. Single thread handles many operations efficiently.</p>
+            <p>When it matters: 1000 concurrent API requests vs 1000 threads. Memory usage drops from gigabytes to megabytes. Response times stay low under load.</p>
+            <div class="code-block"><pre>import asyncio, httpx
+
+async def fetch(client: httpx.AsyncClient, url: str) -> dict:
+    response = await client.get(url)
+    return response.json()
+
+async def fetch_all(urls: list[str]) -> list[dict]:
+    async with httpx.AsyncClient() as client:
+        return await asyncio.gather(*(fetch(client, u) for u in urls))
+
+results = asyncio.run(fetch_all(urls))   # 1000 requests, one thread, low memory</pre></div>
+          </div>
+        </details>
+      </div>
+      <div class="code-block"><pre># Building your structured project
+mkdir se_essentials
+cd se_essentials
+python3 -m venv .venv
+source .venv/bin/activate
+pip install fastapi httpx python-dotenv
+
+# project structure
+src/
+└── se_essentials/
+    ├── __init__.py
+    ├── config.py           # environment handling
+    ├── client.py           # async API client
+    ├── core.py             # main business logic
+    └── server.py           # FastAPI routes
+tests/
+pyproject.toml
+.env.example</pre></div>
+      <p style="color:#3a332a;margin:0 0 4px;font-size:15px;">Key insight: each module has one job. <code>config.py</code> only loads environment variables. <code>server.py</code> only defines HTTP routes. This separation makes testing and reuse trivial.</p>
+      <div class="callout">
+        <h3>Why these patterns exist</h3>
+        <p>These aren't arbitrary conventions, they solve real problems: virtual environments prevent dependency conflicts, type hints catch errors before deployment, structured logging enables production debugging, error handling prevents cascade failures, and project structure reduces cognitive load. Ignore them, and you'll quickly hit the limits of solo development. Embrace them, and you can build systems that survive teamwork, time, and bugs.</p>
       </div>
     </section>
   </main>
@@ -300,23 +456,5 @@
     </div>
   </footer>
 
-  <script>
-    // Progress tracking
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.lesson-card').forEach(card => {
-      card.style.opacity = 0;
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'all 0.3s ease';
-      observer.observe(card);
-    });
-  </script>
 </body>
 </html>

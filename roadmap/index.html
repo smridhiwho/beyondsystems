@@ -176,6 +176,8 @@
     white-space:nowrap;
   }
   .item-resources a:hover{background:var(--gold-soft);}
+  .item-resources a.own-guide{background:var(--coral);color:#fff;border-color:var(--ink);}
+  .item-resources a.own-guide:hover{background:var(--coral-deep);}
   .checklist input{
     appearance:none;width:18px;height:18px;border:1.5px solid var(--ink);
     border-radius:4px;background:var(--gold-soft);display:grid;place-items:center;flex:0 0 auto;
@@ -665,7 +667,12 @@
                 <a href="https://www.geeksforgeeks.org/software-testing/software-testing-basics/" target="_blank" rel="noopener" aria-label="Read Testing writeup">📄 Read</a>
               </span>
             </li>
-            <li><label><input type="checkbox" data-progress-key="fundamentals-software-engineering"><span>Basic software engineering</span></label></li>
+            <li>
+              <label><input type="checkbox" data-progress-key="fundamentals-software-engineering"><span>Basic software engineering</span></label>
+              <span class="item-resources">
+                <a class="own-guide" href="/roadmap/software-engineering" target="_blank" rel="noopener" aria-label="Read the Software Engineering Fundamentals guide">✍ Read</a>
+              </span>
+            </li>
           </ul>
           <p class="footnote">Every great AI engineer starts here.</p>
         </section>
@@ -700,9 +707,24 @@
         <section aria-labelledby="llm-api-items">
           <h3 class="block-title" id="llm-api-items">What to learn</h3>
           <ul class="checklist">
-            <li><label><input type="checkbox" data-progress-key="llm-apis-system-prompts"><span>System prompts</span></label></li>
-            <li><label><input type="checkbox" data-progress-key="llm-apis-structured-outputs"><span>Structured outputs</span></label></li>
-            <li><label><input type="checkbox" data-progress-key="llm-apis-function-calling"><span>Function calling</span></label></li>
+            <li>
+              <label><input type="checkbox" data-progress-key="llm-apis-system-prompts"><span>System prompts</span></label>
+              <span class="item-resources">
+                <a class="own-guide" href="/roadmap/llm-api" target="_blank" rel="noopener" aria-label="Read the System Prompts guide">✍ Read</a>
+              </span>
+            </li>
+            <li>
+              <label><input type="checkbox" data-progress-key="llm-apis-structured-outputs"><span>Structured outputs</span></label>
+              <span class="item-resources">
+                <a class="own-guide" href="/roadmap/llm-api" target="_blank" rel="noopener" aria-label="Read the Structured Outputs guide">✍ Read</a>
+              </span>
+            </li>
+            <li>
+              <label><input type="checkbox" data-progress-key="llm-apis-function-calling"><span>Function calling</span></label>
+              <span class="item-resources">
+                <a class="own-guide" href="/roadmap/llm-api" target="_blank" rel="noopener" aria-label="Read the Function Calling guide">✍ Read</a>
+              </span>
+            </li>
             <li><label><input type="checkbox" data-progress-key="llm-apis-streaming"><span>Streaming</span></label></li>
             <li><label><input type="checkbox" data-progress-key="llm-apis-caching"><span>Caching</span></label></li>
             <li><label><input type="checkbox" data-progress-key="llm-apis-tool-use"><span>Tool use</span></label></li>

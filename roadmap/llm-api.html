@@ -127,6 +127,43 @@
       .footer-links{gap:8px;}
       .footer-links a{font-size:11px;padding:5px 10px;max-width:100%;overflow-wrap:anywhere;}
     }
+
+    .accordion{display:grid;gap:16px;margin-top:24px;}
+    .accordion-item{
+      background:#fff;border:2px solid var(--ink);border-radius:16px;
+      box-shadow:4px 4px 0 rgba(28,23,18,0.12);overflow:hidden;
+    }
+    .accordion-item summary{
+      cursor:pointer;padding:20px 24px;list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    }
+    .accordion-item summary::-webkit-details-marker{display:none;}
+    .accordion-item summary::marker{content:"";}
+    .summary-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .summary-title{font-family:'Space Grotesk', sans-serif;font-size:19px;font-weight:600;}
+    .summary-toggle{
+      font-family:'JetBrains Mono', monospace;font-size:20px;color:var(--coral);
+      flex:0 0 auto;transition:transform .15s ease;
+    }
+    .accordion-item[open] .summary-toggle{transform:rotate(45deg);}
+    .accordion-body{padding:0 24px 26px;border-top:1px solid var(--line);}
+    .accordion-body > *:first-child{margin-top:20px;}
+    .accordion-body h3{font-size:17px;margin:22px 0 8px;}
+    .accordion-body p{color:#3a332a;margin-bottom:12px;font-size:15px;}
+    .accordion-body ul,.accordion-body ol{color:#3a332a;padding-left:20px;margin-bottom:12px;}
+    .accordion-body li{margin-bottom:4px;}
+    .accordion-body strong{color:var(--ink);}
+    .code-block{
+      background:var(--ink);color:#F4E7D3;border-radius:12px;padding:16px 18px;overflow-x:auto;
+      margin:12px 0 16px;box-shadow:4px 4px 0 rgba(28,23,18,0.18);
+    }
+    .code-block pre{font-family:'JetBrains Mono', monospace;font-size:13px;line-height:1.55;white-space:pre;}
+    .callout{
+      border:2px solid var(--ink);background:var(--cream-2);border-radius:16px;padding:20px 22px;
+      box-shadow:4px 4px 0 rgba(28,23,18,0.12);margin:26px 0 0;
+    }
+    .callout h3{font-size:17px;margin-bottom:8px;}
+    .callout p{margin-bottom:0;}
   </style>
 </head>
 <body>
@@ -151,7 +188,7 @@
           
           <div class="hero-meta">
             <span>Category: AI/API</span>
-            <span>Status: 9 Lessons</span>
+            <span>Status: 4 Topics</span>
           </div>
         </div>
       </div>
@@ -161,142 +198,317 @@
       <h2 class="section-title">Lessons</h2>
       <p class="section-intro">Master the practical skills to build and deploy LLM-powered applications at scale.</p>
       
-      <div class="lesson-grid">
-        <!-- Lesson 1: API Fundamentals -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/01-api-fundamentals">LLM API Fundamentals</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">25 min</span>
-            <span class="lesson-badge">Essential</span>
-          </div>
-          <p class="lesson-description">Large Language Model APIs have revolutionized application development. Learn authentication, basic calls, and provider comparison.</p>
-          <div class="lesson-tags">
-            <span class="tag">#openai</span>
-            <span class="tag">#anthropic</span>
-            <span class="tag">#api-design</span>
-          </div>
-        </article>
+      <div class="accordion">
+        <details class="accordion-item" open>
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">LLM API Fundamentals</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span><span class="lesson-badge">Essential</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <table>
+              <thead><tr><th>Provider</th><th>Model</th><th>Pricing</th><th>Key Features</th></tr></thead>
+              <tbody>
+                <tr><td><strong>OpenAI</strong></td><td>GPT-4, GPT-3.5</td><td>Pay-per-token</td><td>Most mature, extensive docs, function calling</td></tr>
+                <tr><td><strong>Anthropic</strong></td><td>Claude</td><td>Pay-per-token</td><td>Safer, longer context windows</td></tr>
+                <tr><td><strong>Google</strong></td><td>Gemini</td><td>Pay-per-token</td><td>Multimodal, function calling</td></tr>
+                <tr><td><strong>Cohere</strong></td><td>Command</td><td>Pay-per-token</td><td>Embeddings, reranking</td></tr>
+                <tr><td><strong>DeepSeek</strong></td><td>DeepSeek-Chat</td><td>Low-cost</td><td>Open-source friendly</td></tr>
+              </tbody>
+            </table>
+            <h3>Basic API Call Structure</h3>
+            <p>Most LLM APIs follow a similar pattern. Here's a complete example with OpenAI:</p>
+            <div class="code-block"><pre>import openai, os
 
-        <!-- Lesson 2: Prompt Engineering -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/02-prompt-engineering">Prompt Engineering Basics</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">20 min</span>
-          </div>
-          <p class="lesson-description">Get better results from your prompts. Learn system prompts, few-shot examples, and how to communicate intent to AI models.</p>
-          <div class="lesson-tags">
-            <span class="tag">#prompt-engineering</span>
-            <span class="tag">#system-prompts</span>
-            <span class="tag">#few-shot</span>
-          </div>
-        </article>
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-        <!-- Lesson 3: Temperature & Sampling -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/03-temperature-sampling">Temperature and Sampling Parameters</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Beginner</span>
-            <span class="lesson-badge">15 min</span>
-          </div>
-          <p class="lesson-description">Control creativity vs. determinism in LLM outputs. Learn when to use low vs high temperature settings.</p>
-          <div class="lesson-tags">
-            <span class="tag">#temperature</span>
-            <span class="tag">#top-p</span>
-            <span class="tag">#sampling</span>
-          </div>
-        </article>
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain quantum computing in simple terms."}
+    ],
+    temperature=0.7,
+    max_tokens=500
+)
+print(response.choices[0].message.content)</pre></div>
+            <h3>Temperature and Sampling</h3>
+            <table>
+              <thead><tr><th>Parameter</th><th>Range</th><th>Effect</th></tr></thead>
+              <tbody>
+                <tr><td><code>temperature</code></td><td>0.0 - 2.0</td><td>Creativity vs. determinism (lower = more predictable)</td></tr>
+                <tr><td><code>top_p</code></td><td>0.0 - 1.0</td><td>Nucleus sampling for diversity</td></tr>
+                <tr><td><code>max_tokens</code></td><td>1 - 4096</td><td>Response length limit</td></tr>
+                <tr><td><code>frequency_penalty</code></td><td>0.0 - 2.0</td><td>Reduce repetitive responses</td></tr>
+              </tbody>
+            </table>
+            <h3>Error Handling</h3>
+            <div class="code-block"><pre>from openai import OpenAI, OpenAIError
+import time
 
-        <!-- Lesson 4: Rate Limiting -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/04-rate-limiting">Rate Limiting and Scaling</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">30 min</span>
+def call_llm_safely(client, messages, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o", messages=messages, temperature=0.7
+            )
+            return response.choices[0].message.content
+        except OpenAIError as e:
+            if attempt < max_retries - 1:
+                time.sleep(2 ** attempt)
+            else:
+                raise e</pre></div>
           </div>
-          <p class="lesson-description">Handle API quotas, implement caching, and design for scale. Learn patterns for building resilient LLM services.</p>
-          <div class="lesson-tags">
-            <span class="tag">#rate-limiting</span>
-            <span class="tag">#caching</span>
-            <span class="tag">#scaling</span>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">System Prompts: Setting the Stage for AI Behavior</span>
+              <span class="lesson-meta"><span class="lesson-badge">Beginner</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>System prompts are the invisible director setting expectations. They run before all conversation, shaping how the model responds. Without them, models default to generic helpfulness. With them, you get consistent, reliable outputs.</p>
+            <p>Why they matter: imagine asking a junior developer to summarize quarterly earnings. Without context, they'd ask for spreadsheet access. With "summarize email reports from finance@company.com sent before March 31," they ship the right work in minutes. System prompts replace dozens of follow-up questions.</p>
+            <h3>Anatomy of a Good System Prompt</h3>
+            <div class="code-block"><pre>You are a senior ML engineer specializing in inference optimization.
+Provide concise, production-focused answers.
+Always explain tradeoffs.
+Never mention training procedures unless asked.
+Format code in triple backticks.
+Respond to technical questions in under 200 words.</pre></div>
+            <p>This prompt establishes capabilities, constraints, and tone. The model knows its role, limits, and audience.</p>
+            <h3>System Prompts vs User Prompts</h3>
+            <p>A user prompt with "summarize this" gets a summary. A user prompt "summarize using these four headings" still works, but a system prompt "you are a technical writer" makes summaries consistently structured. System prompts set the stage, user prompts provide the script.</p>
+            <h3>Common Patterns</h3>
+            <ul>
+              <li><strong>Role-based:</strong> "You are a Python expert..." &rarr; direct, practical answers with code examples.</li>
+              <li><strong>Constraint-based:</strong> "Respond in under 100 words..." &rarr; concise output without follow-up length concerns.</li>
+              <li><strong>Format-based:</strong> "Always use markdown..." &rarr; consistent formatting for automated parsing.</li>
+              <li><strong>Personality:</strong> "Be direct but friendly..." &rarr; tone without sacrificing clarity.</li>
+            </ul>
+            <h3>Real-World Example: API Client Helper</h3>
+            <div class="code-block"><pre>You are an API integration specialist.
+Write production-ready Python using httpx and type hints.
+Include proper error handling and docstrings.
+Never include API keys. Use placeholders.</pre></div>
+            <p>User prompt: "Create a client for OpenWeatherMap" &rarr; result: code with retry logic, proper type definitions, and clear error messages, without you needing to specify those requirements.</p>
+            <h3>Dynamic System Prompts</h3>
+            <div class="code-block"><pre>Current task: Debug slow database queries
+Context: PostgreSQL, 1M+ rows, queries over 5 seconds
+Focus: Query optimization, indexing, EXPLAIN ANALYZE</pre></div>
+            <p>Now the model shifts from general advice to specific debugging strategies.</p>
+            <h3>Testing System Prompts</h3>
+            <p>Bad system prompts produce inconsistent results. Test by asking the same question 3 times. If answers vary wildly, the prompt lacks clarity or constraints. Good system prompts yield predictable responses across inputs, consistency enables automation.</p>
+            <h3>Practical Exercise</h3>
+            <p>Create a system prompt for code review:</p>
+            <div class="code-block"><pre>You are a senior Python developer reviewing pull requests.
+Focus on security, performance, and maintainability.
+Point out specific lines with line numbers.
+Suggest concrete alternatives.
+Remain constructive and professional.</pre></div>
+            <p>Test with this diff:</p>
+            <div class="code-block"><pre>- if user_input:
++ if len(user_input) > 0:</pre></div>
+            <p>A good system prompt should flag the unnecessary <code>len()</code> call as a performance anti-pattern.</p>
+            <div class="callout">
+              <h3>Key takeaways</h3>
+              <p>System prompts are your first line of quality control. They define who the model is, what constraints apply, and how responses should look. Spend time crafting them, they're worth more than perfect user prompts.</p>
+            </div>
           </div>
-        </article>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Structured Outputs: Turning Freeform Text Into Predictable Data</span>
+              <span class="lesson-meta"><span class="lesson-badge">Intermediate</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>LLMs excel at unstructured text but stumble when you need reliable data. Ask for "a list of features" and get prose. Ask for JSON and sometimes still get "Sure, here's the JSON: {...}" wrapped in commentary. Structured outputs turn probabilistic text back into deterministic code.</p>
+            <h3>The Problem: Unreliable Output</h3>
+            <p>User prompt: "Give me three Python features" produces a paragraph of prose. Three features? Hard to parse. Should you extract with regex? What happens when the format changes next time?</p>
+            <h3>The Solution: Constrained Output</h3>
+            <div class="code-block"><pre>[
+  {"name": "list comprehensions", "description": "..."},
+  {"name": "decorators", "description": "..."},
+  {"name": "type hints", "description": "..."}
+]</pre></div>
+            <p>The LLM produces valid JSON. Your code parses it. No guesswork.</p>
+            <h3>How Structured Outputs Work</h3>
+            <div class="code-block"><pre>response_format = {"type": "json_object"}
 
-        <!-- Lesson 5: Cost Management -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/05-cost-management">Cost Management and Budgeting</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">25 min</span>
-          </div>
-          <p class="lesson-description">LLM APIs can get expensive fast. Learn how to estimate costs, set budgets, and optimize token usage.</p>
-          <div class="lesson-tags">
-            <span class="tag">#cost-optimization</span>
-            <span class="tag">#token-usage</span>
-            <span class="tag">#budgeting</span>
-          </div>
-        </article>
+# or, for more control:
+response_format = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "feature_list",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "description": {"type": "string"}
+                        },
+                        "required": ["name", "description"]
+                    }
+                }
+            }
+        }
+    }
+}</pre></div>
+            <h3>Real-World Example: API Specification</h3>
+            <p>Without structured output, "design a REST API for a todo app" gets you prose you copy-paste and debug. With it:</p>
+            <div class="code-block"><pre>schema = {
+    "type": "object",
+    "properties": {
+        "endpoints": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "method": {"type": "string"},
+                    "path": {"type": "string"},
+                    "description": {"type": "string"},
+                    "body": {"type": "object"}
+                }
+            }
+        }
+    }
+}</pre></div>
+            <p>Output imports directly into your FastAPI routes. Zero manual parsing.</p>
+            <h3>Common Patterns</h3>
+            <p><strong>Batch extraction:</strong> pull structured data from unstructured text (e.g. support emails &rarr; <code>{"name", "email", "issue"}</code>).</p>
+            <p><strong>Template validation:</strong> ensure the model fills templates correctly.</p>
+            <p><strong>Configuration generation:</strong> turn natural language into config objects, "make this AWS Lambda config" &rarr; structured JSON parameters.</p>
+            <h3>Trade-offs</h3>
+            <p><strong>Pros:</strong> deterministic output, no parsing logic, type-safe downstream processing.</p>
+            <p><strong>Cons:</strong> rigid format, less natural language flexibility, schema definition effort.</p>
+            <p>Use structured outputs when you need reliability. Use freeform when you need explanation.</p>
+            <h3>Getting Started</h3>
+            <div class="code-block"><pre>import openai, json
 
-        <!-- Lesson 6: Error Handling -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/06-error-handling">Error Handling and Retry Logic</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">25 min</span>
+response = openai.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "List 3 Python features as JSON array: {name, description}"}],
+    response_format={"type": "json_object"}
+)
+features = json.loads(response.choices[0].message.content)</pre></div>
+            <div class="callout">
+              <h3>Key takeaways</h3>
+              <p>Structured outputs are guardrails, not cages. They force LLMs into the format you need, eliminating brittle parsing logic. Define your schema once, get perfect data every time.</p>
+            </div>
           </div>
-          <p class="lesson-description">LLM APIs fail. Learn to handle rate limits, timeouts, and invalid responses gracefully.</p>
-          <div class="lesson-tags">
-            <span class="tag">#errors</span>
-            <span class="tag">#retries</span>
-            <span class="tag">#resilience</span>
-          </div>
-        </article>
+        </details>
+        <details class="accordion-item">
+          <summary>
+            <span class="summary-left">
+              <span class="summary-title">Function Calling: Making LLMs Call Your Code</span>
+              <span class="lesson-meta"><span class="lesson-badge">Advanced</span></span>
+            </span>
+            <span class="summary-toggle">+</span>
+          </summary>
+          <div class="accordion-body">
+            <p>LLMs are great at conversation but terrible at running code. Function calling bridges this gap, it lets the model decide what to do, while you write how to do it.</p>
+            <p>Without function calling: you write "call search function with this query" in your prompt, the model hallucinates search parameters, your code doesn't run. With function calling: the model returns structured function arguments and your code executes them directly.</p>
+            <h3>How It Works</h3>
+            <p>You provide two things to the API: function definitions (the tools available) and messages (the conversation). The model replies with either text or a function call object. When it calls a function, you execute it and send the result back, the model continues reasoning.</p>
+            <h3>Simple Example: Weather Lookup</h3>
+            <div class="code-block"><pre>functions = [{
+    "name": "get_weather",
+    "description": "Get current weather for a city",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "city": {"type": "string", "description": "City name, e.g. San Francisco"},
+            "unit": {"type": "string", "enum": ["celsius", "fahrenheit"], "default": "celsius"}
+        },
+        "required": ["city"]
+    }
+}]
 
-        <!-- Lesson 7: Function Calling -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/07-function-calling">Function Calling and Tools</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Advanced</span>
-            <span class="lesson-badge">35 min</span>
-          </div>
-          <p class="lesson-description">Make LLMs call your functions. Learn the anatomy of function definitions and how to handle responses.</p>
-          <div class="lesson-tags">
-            <span class="tag">#function-calling</span>
-            <span class="tag">#tools</span>
-            <span class="tag">#agents</span>
-          </div>
-        </article>
+# User asks: "What's the weather in Tokyo?"
+# Model responds:
+# {"name": "get_weather", "arguments": "{\"city\": \"Tokyo\", \"unit\": \"celsius\"}"}
 
-        <!-- Lesson 8: Structured Outputs -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/08-structured-outputs">Structured Outputs and JSON Modes</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Intermediate</span>
-            <span class="lesson-badge">30 min</span>
-          </div>
-          <p class="lesson-description">Get reliable JSON from LLMs. Learn about response_format parameter and schema validation.</p>
-          <div class="lesson-tags">
-            <span class="tag">#json-mode</span>
-            <span class="tag">#structured-output</span>
-            <span class="tag">#parsing</span>
-          </div>
-        </article>
+def get_weather(city: str, unit: str = "celsius") -> str:
+    return f"{city}: 22°{unit[0].upper()}"</pre></div>
+            <h3>Complex Example: Restaurant Booking</h3>
+            <div class="code-block"><pre>functions = [{
+    "name": "book_table",
+    "description": "Book a restaurant reservation",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "restaurant": {"type": "string"},
+            "party_size": {"type": "integer", "minimum": 1, "maximum": 20},
+            "datetime": {"type": "string", "format": "date-time"},
+            "occasion": {"type": "string", "enum": ["birthday", "anniversary", "date", "none"]}
+        },
+        "required": ["restaurant", "party_size", "datetime"]
+    }
+}]
 
-        <!-- Lesson 9: Async APIs -->
-        <article class="lesson-card">
-          <h3 class="lesson-title"><a href="/roadmap/llm-api/09-async-apis">Async API Patterns</a></h3>
-          <div class="lesson-meta">
-            <span class="lesson-badge">Advanced</span>
-            <span class="lesson-badge">35 min</span>
+# "Book a table for 4 at Sushi House tomorrow at 7 PM for my anniversary" ->
+# {"name": "book_table", "arguments": {"restaurant": "Sushi House", "party_size": 4,
+#   "datetime": "2024-01-15T19:00:00", "occasion": "anniversary"}}</pre></div>
+            <h3>When to Use Function Calling</h3>
+            <p><strong>Use it when:</strong> the model needs to make decisions, external data is required, you need reliable input extraction, or it's part of an automation workflow.</p>
+            <p><strong>Don't use it when:</strong> it's pure conversation, a simple calculation the model can just reason through, or the information is already in context.</p>
+            <h3>Building a Complete Loop</h3>
+            <div class="code-block"><pre>import openai, json
+
+available_functions = {
+    "get_weather": lambda city, unit="celsius": f"{city}: 22°",
+    "book_table": lambda restaurant, party_size, datetime, occasion="none": "Booked!"
+}
+
+def run_conversation(messages):
+    while True:
+        response = openai.chat.completions.create(
+            model="gpt-4o", messages=messages, functions=[...], function_call="auto"
+        )
+        message = response.choices[0].message
+        if message.get("function_call"):
+            func_name = message["function_call"]["name"]
+            func_args = json.loads(message["function_call"]["arguments"])
+            result = available_functions[func_name](**func_args)
+            messages.append({"role": "assistant", "content": result, "function_call": message["function_call"]})
+        else:
+            return message["content"]
+
+messages = [{"role": "user", "content": "What's the weather in London?"}]
+print(run_conversation(messages))</pre></div>
+            <h3>Common Patterns</h3>
+            <ul>
+              <li><strong>Orchestrator pattern:</strong> LLM decides which functions to call and in what order, great for multi-step workflows.</li>
+              <li><strong>Extract pattern:</strong> LLM extracts structured data from user input into function arguments, clean separation of NLU and execution.</li>
+              <li><strong>Validation pattern:</strong> model calls validation functions to check if proposed solutions work.</li>
+            </ul>
+            <h3>Tool Use vs Function Calling</h3>
+            <p>Function calling is simpler but less flexible. Tool use (used by agents) supports multiple parallel calls, tool descriptions, and more complex interactions. Start with function calling, move to tool use when you need multi-step reasoning.</p>
+            <h3>Getting Started Checklist</h3>
+            <ul>
+              <li>Define function signatures for your APIs</li>
+              <li>Map model calls to actual implementations</li>
+              <li>Handle errors (invalid arguments, missing functions)</li>
+              <li>Return results in conversational format</li>
+              <li>Test with ambiguous and complex queries</li>
+            </ul>
+            <div class="callout">
+              <h3>Key takeaways</h3>
+              <p>Function calling turns LLMs into decision engines while keeping your code execution reliable. Define clear interfaces, handle the loop, and let the model orchestrate your tools.</p>
+            </div>
           </div>
-          <p class="lesson-description">Handle 1000+ concurrent requests efficiently. Learn async patterns and batching strategies.</p>
-          <div class="lesson-tags">
-            <span class="tag">#async</span>
-            <span class="tag">#concurrency</span>
-            <span class="tag">#batching</span>
-          </div>
-        </article>
+        </details>
       </div>
     </section>
   </main>
@@ -315,22 +527,5 @@
     </div>
   </footer>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.lesson-card').forEach(card => {
-      card.style.opacity = 0;
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'all 0.3s ease';
-      observer.observe(card);
-    });
-  </script>
 </body>
 </html>
