@@ -43,6 +43,12 @@
     .mono{font-family:'JetBrains Mono', monospace;}
     .hand{font-family:'Caveat', cursive;}
 
+    .skip-link{
+      position:absolute;left:16px;top:-44px;background:var(--ink);color:var(--cream-2);
+      padding:10px 14px;border-radius:10px;z-index:40;
+    }
+    .skip-link:focus{top:16px;}
+
     .topbar{
       display:flex;align-items:center;justify-content:space-between;gap:18px;
       padding:22px 28px;max-width:1180px;margin:0 auto;
@@ -61,7 +67,7 @@
     .topnav a:hover{background:var(--gold-soft);transform:translateY(-1px);}
     .topnav a[aria-current="page"]{background:var(--coral);color:#fff;}
 
-    .hero{position:relative;padding:40px 0 34px;background:linear-gradient(135deg, var(--cream) 0%, var(--lavender) 5%);}
+    .hero{position:relative;padding:40px 0 34px;}
     .hero-grid{display:grid;grid-template-columns:minmax(0, 1fr) 320px;gap:34px;align-items:end;}
     .eyebrow{
       display:inline-flex;align-items:center;gap:8px;
@@ -174,8 +180,6 @@
     <nav class="topnav">
       <a href="/">Home</a>
       <a href="/roadmap">AI Roadmap</a>
-      <a href="/roadmap/software-engineering">Software Engineering</a>
-      <a href="/roadmap/llm-api" aria-current="page">LLM API</a>
     </nav>
   </header>
 
